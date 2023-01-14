@@ -26,6 +26,6 @@ class LoginControllerTest {
         String pwd = "pwd";
 
         String url = "http://localhost:"+port+"/login";
-        
+
     }
 }

@@ -1,4 +1,4 @@
-package com.hansung.capstone.dto;
+package com.hansung.capstone.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

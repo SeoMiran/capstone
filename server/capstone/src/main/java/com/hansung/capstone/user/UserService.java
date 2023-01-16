@@ -1,10 +1,7 @@
-package com.hansung.capstone.dto;
+package com.hansung.capstone.user;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

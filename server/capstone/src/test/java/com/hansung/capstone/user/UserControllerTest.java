@@ -6,23 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@AutoConfigureMockMvc
-@AutoConfigureWebMvc
+@WebMvcTest(UserControllerTest.class)
 class UserControllerTest {
+
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private UserRepository userRepository;
-
+    @Test
+    void testAdd() {
+        assertEquals(42, Integer.sum(19, 23));
+    }
 
     @Test
     @DisplayName("Get login check - /login/check")
@@ -30,7 +33,7 @@ class UserControllerTest {
         String id = "1234";
         String pwd = "5678";
 
-        mockMvc.perform(get("/login/check")
+        mockMvc.perform(MockMvcRequestBuilders.get("/login/check")
                         .param("id", id)
                         .param("pwd", pwd))
                 .andExpect(status().isOk());

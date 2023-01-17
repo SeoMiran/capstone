@@ -33,4 +33,9 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+//    @GetMapping("/hello")
+//    private String hello(){
+//        return "hello!";
+//    }
+
 }

@@ -18,6 +18,15 @@ public class UserService {
         return user;
     }
 
+    public Boolean check(AppUser req){
+        AppUser db = userRepository.findByusername(req.getUsername()).get();
+        if (req.getUsername().equals(db.getUsername()) && req.getPassword().equals(db.getPassword())){
+            return Boolean.TRUE;
+        } else{
+            return Boolean.FALSE;
+        }
+    }
+
 //    public User getUser(String username){
 //        Optional<User> user = this.userRepository.findByUsername(username);
 //        if(user.isPresent()){

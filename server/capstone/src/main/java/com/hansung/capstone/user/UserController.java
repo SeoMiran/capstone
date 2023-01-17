@@ -26,10 +26,9 @@ public class UserController {
     @PostMapping("/check")
     private ResponseEntity loginCheck(@RequestBody Optional<AppUser> req) {
         AppUser user = req.get();
-        AppUser check = userRepository.findByusername(user.getUsername()).get();
-        if (user.getUsername().equals(check.getUsername()) && user.getPassword().equals(check.getPassword())){
+        if (userService.check(user)){
             return new ResponseEntity(HttpStatus.OK);
-        }else {
+        } else{
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

@@ -35,9 +35,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private ResponseEntity register(UserCreateForm userCreateForm, BindingResult bindingResult){
-        userService.create(userCreateForm.getUsername(),
-                userCreateForm.getPassword1(), userCreateForm.getEmail());
+    private ResponseEntity register(@RequestBody Optional<AppUser> req){
+        AppUser user = req.get();
+        userService.create(user.getUsername(), user.getPassword(), user.getEmail());
         return new ResponseEntity(HttpStatus.OK);
     }
 

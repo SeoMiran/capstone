@@ -33,23 +33,24 @@ class UserControllerTest {
         String id = "1234";
         String pwd = "5678";
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/login/check")
+        mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/login/check")
                         .param("id", id)
                         .param("pwd", pwd))
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    @DisplayName("Post register test - /login/register")
-//    void registerTest() throws Exception{
-//        String id = "hoon";
-//        String pwd = "1234";
-//        String email = "test@test.com";
-//
-//        mockMvc.perform(post("/login/register")
-//                        .param("username", id)
-//                        .param("pwd", pwd)
-//                        .param("email", email))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    @DisplayName("Post register test - /login/register")
+    void registerTest() throws Exception{
+        String id = "ch";
+        String pwd = "1234";
+        String email = "test11@test.com";
+
+        mockMvc.perform(post("http://localhost:8080/login/register")
+                        .param("username", id)
+                        .param("password1", pwd)
+                        .param("password2", pwd)
+                        .param("email", email))
+                .andExpect(status().isOk());
+    }
 }

@@ -5,23 +5,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/login")
 public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserRepository userRepository;
+
+
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/check")
-    private ResponseEntity loginCheck(@RequestParam String id, @RequestParam String pwd) {
-        String id1 = "1234";
-        String pwd1 = "5678";
-        if (id.equals(id1) && pwd.equals(pwd1)){
+
+    @PostMapping("/check")
+    private ResponseEntity loginCheck(@RequestBody Optional<AppUser> req) {
+        AppUser user = req.get();
+        AppUser check = userRepository.findByusername(user.getUsername()).get();
+        if (user.getUsername().equals(check.getUsername()) && user.getPassword().equals(check.getPassword())){
             return new ResponseEntity(HttpStatus.OK);
-        } else{
+        }else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
@@ -33,9 +41,23 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-//    @GetMapping("/hello")
-//    private String hello(){
-//        return "hello!";
-//    }
+    @PostMapping("/test")
+    public String mapRequest(@RequestBody HashMap<String, String> param){
+        System.out.println("param : " + param);
+        System.out.println(param.get("username"));
+        return param.toString();
+    }
+
+    @GetMapping("/hello")
+    public Optional<AppUser> hello(){
+        AppUser user = userRepository.findByusername("hoon").get();
+        System.out.println(user.getPassword());
+        return userRepository.findByusername("hoon");
+    }
+
+    @GetMapping("/hi")
+    public String hi(){
+        return "hello";
+    }
 
 }
